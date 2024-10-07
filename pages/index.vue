@@ -7,8 +7,8 @@ import { toTypedSchema } from '@vee-validate/yup';
 const { values, handleSubmit, defineField, errors} = useForm({
   validationSchema: toTypedSchema(
     object({
-      email: string().required(),
-      password: string().required(),
+      email: string().email('Invalid email format').required('Email is required'),
+      password: string().min(8, 'Password must be at least 8 characters long').required('Password is required'),
       name: string(),
     }),
   ),
