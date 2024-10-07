@@ -1,12 +1,29 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useForm } from 'vee-validate';
+import { object, string } from 'yup';
+import { toTypedSchema } from '@vee-validate/yup';
 
-const showPassword = ref(false);
+const { values, handleSubmit, defineField } = useForm({
+  validationSchema: toTypedSchema(
+    object({
+      email: string().required(),
+      password: string().required(),
+      name: string(),
+    }),
+  ),
+});
+const [email, emailAttrs] = defineField('email')
+const [password, passwordAttrs] = defineField('password')
+const showPassword = ref<Boolean>(false);
+const onSubmit = handleSubmit(async (values) => {
+  navigateTo('/success')
+})
 </script>
 
 <template>
   <div>
-    <form action="">
+    <form @submit.prevent="onSubmit">
       <label for="email">
         Email:
       </label>
@@ -15,6 +32,8 @@ const showPassword = ref(false);
         id="email"
         name="email"
         required
+        v-bind="emailAttrs"
+        v-model="email"
       >
       
       <label for="password">
@@ -26,6 +45,8 @@ const showPassword = ref(false);
         id="password"
         name="password"
         required
+        v-bind="passwordAttrs"
+        v-model="password"
       >
       <button
         type="button"
