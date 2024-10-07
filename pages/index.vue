@@ -4,7 +4,7 @@ import { useForm } from 'vee-validate';
 import { object, string } from 'yup';
 import { toTypedSchema } from '@vee-validate/yup';
 
-const { values, handleSubmit, defineField, errors} = useForm({
+const { handleSubmit, defineField, errors} = useForm({
   validationSchema: toTypedSchema(
     object({
       email: string().email('Invalid email format').required('Email is required'),
@@ -16,8 +16,14 @@ const { values, handleSubmit, defineField, errors} = useForm({
 const [email, emailAttrs] = defineField('email')
 const [password, passwordAttrs] = defineField('password')
 const showPassword = ref<Boolean>(false);
+const isLoading = ref(false);
 const onSubmit = handleSubmit(async (values) => {
-  navigateTo('/success')
+  isLoading.value = true;
+  const result = await $fetch('/api/wait')
+  isLoading.value = false;
+  if (result) {
+    navigateTo('/success')
+  }
 })
 </script>
 
@@ -91,7 +97,12 @@ const onSubmit = handleSubmit(async (values) => {
             ></nord-checkbox>
 
             <!-- submit -->
-            <nord-button type="submit" variant="primary" expand>
+            <nord-button
+              type="submit"
+              variant="primary"
+              expand
+              :loading="isLoading"
+            >
               Submit
             </nord-button>
           </nord-stack>
@@ -99,11 +110,3 @@ const onSubmit = handleSubmit(async (values) => {
     </nord-card>
   </main>
 </template>
-
-<style scoped>
-.card {
-  inline-size: 90%;
-  max-inline-size: 340px;
-  margin: var(--n-space-xl) auto;
-}
-</style>
