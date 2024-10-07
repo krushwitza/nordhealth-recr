@@ -22,33 +22,31 @@ const onSubmit = handleSubmit(async (values) => {
 </script>
 
 <template>
-  <div>
-    <nord-header>
-      <h1 class="n-typescale-l">Nord / Vue Example</h1>
-    </nord-header>
-    <main class="">
-      <nord-card class>
+  <main>
+    <nord-card padding="l" class="card">
+        <h2 slot="header">Sign up for updates</h2>
         <form @submit.prevent="onSubmit">
           <nord-stack>
             <!-- email -->
             <nord-input
               label="Email"
               type="email"
-              id="email"
               name="email"
               v-bind="emailAttrs"
               v-model="email"
               aria-describedby="email-error"
               :aria-invalid="!!errors.email"
+              :expand="true"
+              required
             >
               <span
                 slot="error"
-                v-if="errors.password"
-                id="password-error"
+                v-if="errors.email"
+                id="email-error"
                 role="alert"
                 aria-live="polite"
               >
-                {{ errors.password }}
+                {{ errors.email }}
               </span>
             </nord-input>
           
@@ -62,6 +60,8 @@ const onSubmit = handleSubmit(async (values) => {
               v-model="password"
               aria-describedby="password-error"
               :aria-invalid="!!errors.password"
+              required
+              :expand="true"
             >
               <nord-button
                 slot="end"
@@ -91,16 +91,19 @@ const onSubmit = handleSubmit(async (values) => {
             ></nord-checkbox>
 
             <!-- submit -->
-            <nord-button type="submit" variant="primary">
+            <nord-button type="submit" variant="primary" expand>
               Submit
             </nord-button>
           </nord-stack>
         </form>
-      </nord-card>
-    </main>
-  </div>
+    </nord-card>
+  </main>
 </template>
 
 <style scoped>
-
+.card {
+  inline-size: 90%;
+  max-inline-size: 340px;
+  margin: var(--n-space-xl) auto;
+}
 </style>

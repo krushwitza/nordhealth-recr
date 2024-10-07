@@ -2,9 +2,13 @@
 
 <template>
   <div>
-    Layout: default
+    <nord-header>
+      <h1 class="n-typescale-l">Nordhealth</h1>
+    </nord-header>
     <slot />
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+
+</style>
