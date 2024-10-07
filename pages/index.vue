@@ -1,30 +1,30 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useForm } from 'vee-validate';
-import { object, string } from 'yup';
-import { toTypedSchema } from '@vee-validate/yup';
+import { formSchema } from '@/utils/validation.schema';
 
-const { handleSubmit, defineField, errors} = useForm({
-  validationSchema: toTypedSchema(
-    object({
-      email: string().email('Invalid email format').required('Email is required'),
-      password: string().min(8, 'Password must be at least 8 characters long').required('Password is required'),
-      name: string(),
-    }),
-  ),
-});
-const [email, emailAttrs] = defineField('email')
-const [password, passwordAttrs] = defineField('password')
-const showPassword = ref<Boolean>(false);
+// UI state
 const isLoading = ref(false);
+const showPassword = ref<Boolean>(false);
+
+// Form
+const { handleSubmit, defineField, errors } = useForm({
+  validationSchema: formSchema
+});
+
+// Form fields
+const [email, emailAttrs] = defineField('email');
+const [password, passwordAttrs] = defineField('password');
+
+// Form submission handler
 const onSubmit = handleSubmit(async (values) => {
   isLoading.value = true;
-  const result = await $fetch('/api/wait')
+  const result = await $fetch('/api/wait');
   isLoading.value = false;
   if (result) {
-    navigateTo('/success')
+    navigateTo('/success');
   }
-})
+});
 </script>
 
 <template>
