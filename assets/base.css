@@ -16,3 +16,8 @@ body {
   font-family: var(--n-font-family);
   background-color: var(--n-color-surface-raised);
 }
+.card {
+  inline-size: 90%;
+  max-inline-size: 340px;
+  margin: var(--n-space-xl) auto;
+}
