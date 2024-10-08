@@ -1,4 +1,4 @@
 import '@nordhealth/css'
 import '@nordhealth/components'
 
-export default defineNuxtPlugin((nuxtApp) => {})
+export default defineNuxtPlugin(() => {})
