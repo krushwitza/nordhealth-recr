@@ -1,4 +1,13 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const route = useRoute()
+
+useHead({
+  title: `Nordhealth - ${route.meta.title}`,
+  meta: [
+    { name: 'description', content: route.meta.description as string },
+  ],
+})
+</script>
 
 <template>
   <div>

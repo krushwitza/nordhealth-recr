@@ -3,6 +3,11 @@ import { ref } from 'vue';
 import { useForm } from 'vee-validate';
 import { formSchema } from '@/utils/validation.schema';
 
+definePageMeta({
+  title: "Sign up for updates",
+  description: "Stay informed about our latest products and features. Sign up for updates to receive exclusive offers and valuable insights.",
+})
+
 // UI state
 const isLoading = ref(false);
 const showPassword = ref<boolean>(false);
