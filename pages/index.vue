@@ -72,11 +72,20 @@ const onSubmit = handleSubmit(async () => {
               <nord-button
                 slot="end"
                 type="button"
-                :aria-label="showPassword ? 'Hide password' : 'Show password'"
                 @click="showPassword = !showPassword"
               >
-                <nord-icon v-if="showPassword" size="s" name="interface-edit-off"/>
-                <nord-icon v-else size="s" name="interface-edit-on"/>
+                <nord-icon
+                  v-if="showPassword"
+                  size="s"
+                  name="interface-edit-off"
+                  label="Hide password"
+                />
+                <nord-icon
+                  v-else
+                  size="s"
+                  name="interface-edit-on"
+                  label="Show password"
+                />
               </nord-button>
 
               <span
